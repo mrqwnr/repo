@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TikTok Poster</title>
+<link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>🎬 TikTok Poster</h1>
+    <button id="settingsBtn" class="icon-btn" title="Настройки">⚙️</button>
+  </header>
+
+  <main>
+    <!-- Settings panel (hidden by default) -->
+    <section id="settingsPanel" class="panel hidden">
+      <h2>Настройки</h2>
+      <label>
+        upload-post API ключ
+        <input id="apiKey" type="password" placeholder="Apikey xxx или просто токен" />
+        <small>Получить: <a href="https://app.upload-post.com" target="_blank">app.upload-post.com</a> → Settings → API</small>
+      </label>
+      <label>
+        Profile name (из дашборда upload-post)
+        <input id="userProfile" type="text" placeholder="например, mybrand" />
+      </label>
+      <button id="saveSettings" class="primary">Сохранить</button>
+      <div id="ffmpegStatus" class="status-line"></div>
+    </section>
+
+    <!-- Main upload form -->
+    <section id="uploadPanel" class="panel">
+      <!-- Video file picker -->
+      <div class="drop-zone" id="dropZone">
+        <input type="file" id="videoInput" accept="video/*" hidden />
+        <div id="dropZoneEmpty">
+          <div class="big-emoji">📁</div>
+          <p>Перетащи видео сюда</p>
+          <p class="muted">или</p>
+          <button id="pickVideoBtn" class="secondary">Выбрать файл</button>
+        </div>
+        <div id="dropZoneSelected" class="hidden">
+          <div class="big-emoji">✅</div>
+          <p id="videoFileName"></p>
+          <button id="clearVideoBtn" class="link">Очистить</button>
+        </div>
+      </div>
+
+      <!-- Text fields -->
+      <label>
+        Название
+        <input id="title" type="text" maxlength="150" placeholder="Заголовок видео" />
+      </label>
+
+      <label>
+        Описание
+        <textarea id="description" rows="3" placeholder="Развёрнутое описание (необязательно)"></textarea>
+      </label>
+
+      <label>
+        Хештеги
+        <input id="hashtags" type="text" placeholder="fyp viral funny (через пробел, без #)" />
+        <small>Решётки добавятся автоматически</small>
+      </label>
+
+      <!-- Music mode -->
+      <fieldset class="music-mode">
+        <legend>Музыка</legend>
+        <label class="radio">
+          <input type="radio" name="musicMode" value="custom" checked />
+          <span>Своя музыка (наложить аудиофайл)</span>
+        </label>
+        <div id="customMusicRow" class="indent">
+          <input type="file" id="audioInput" accept="audio/*" hidden />
+          <button id="pickAudioBtn" class="secondary small">Выбрать аудио</button>
+          <span id="audioFileName" class="muted small">файл не выбран</span>
+        </div>
+
+        <label class="radio">
+          <input type="radio" name="musicMode" value="draft" />
+          <span>Draft (доделаешь звук в TikTok вручную)</span>
+        </label>
+        <small class="hint">
+          TikTok не позволяет автоматически подбирать "рекомендованную" музыку через API.
+          В режиме Draft видео загрузится без музыки — открой TikTok на телефоне и добавь звук в один тап.
+        </small>
+      </fieldset>
+
+      <!-- Publish button -->
+      <button id="publishBtn" class="primary big" disabled>
+        🚀 Опубликовать в TikTok
+      </button>
+
+      <div id="progressArea" class="hidden">
+        <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+        <div id="progressText" class="muted small"></div>
+      </div>
+
+      <div id="resultArea" class="hidden"></div>
+    </section>
+  </main>
+</div>
+
+<script type="module" src="./main.js"></script>
+</body>
+</html>
